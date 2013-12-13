@@ -1,0 +1,191 @@
+﻿<Window x:Class="Ludo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        
+        Title="MainWindow" Height="auto" Width="auto">
+
+
+    <DockPanel>
+
+
+        <StackPanel Height="auto" Width="auto" DockPanel.Dock="Left">
+
+            <TextBlock Margin="20,20,0,0" FontSize="40" FontFamily="SketchFlow Print">Frukt med knuff</TextBlock>
+            <TextBox Name="Menu" FontFamily="SketchFlow Print" Width="200" Grid.Column="1" Margin="0,100,0,0" HorizontalAlignment="Center"  BorderBrush="AliceBlue" FontSize="40" IsReadOnly="True" HorizontalContentAlignment="Center">Meny</TextBox>
+            <Button Focusable="False" FontFamily="SketchFlow Print" FontSize="25" Height="40" Width="200"  HorizontalAlignment="Center" Background="#CCFFFF" BorderBrush="AliceBlue" Click="StartGame" Content="Start"></Button>
+            <Button Focusable="False" FontFamily="SketchFlow Print" FontSize="25" Height="40" Width="200" HorizontalAlignment="Center" Background="#CCFFFF" BorderBrush="AliceBlue" Click="QuitGame">Sluta</Button>
+            <Button Focusable="False" FontFamily="SketchFlow Print" FontSize="25" Height="40" Width="200" HorizontalAlignment="Center" Background="#CCFFFF" BorderBrush="AliceBlue" Click="SaveGame">Spara</Button>
+            <Button Focusable="False" FontFamily="SketchFlow Print" FontSize="25" Height="40" Width="200" HorizontalAlignment="Center" Background="#CCFFFF" BorderBrush="AliceBlue" Click="LoadGame" Content="Ladda"></Button>
+        </StackPanel>
+
+        <Grid Height="auto" Width="200" DockPanel.Dock="Right">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <TextBox FontFamily="SketchFlow Print" Background="#CCFFFF" Grid.Row="0" Margin="10,38,10,28" Width="180" Height="60" HorizontalAlignment="Center"
+                     HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" IsReadOnly="True" FontSize="18"
+                     Text="{Binding Path=PlayerTurn}"></TextBox>
+
+            <Grid Grid.RowSpan="2" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Name="imgdice" Grid.Column="2" Grid.ColumnSpan="3" Grid.RowSpan="3" Source="/images/mr-banana.jpg"></Image>
+                <Image Name="bubble" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3"></Image>
+                <Image Name="dice" Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"></Image>
+            </Grid>
+
+
+
+
+            <Button Focusable="False" FontFamily="SketchFlow Print" Background="#CCFFFF" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Height="60" 
+                    BorderBrush="AliceBlue" Grid.Row="3" Margin="10,-50,10,10" Content="Kasta" Click="RollDiceAndHandleEvents"></Button>
+        </Grid>
+        <Grid Height="auto" Width="auto" DockPanel.Dock="Top" Margin="40,40,40,40">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Ellipse Fill="#FFCC66" Grid.Column="1" Grid.Row="1" Width="auto" Height="auto"
+                     Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="blueStart"></Ellipse>
+            
+            <Ellipse Fill="#FF3399" Grid.Column="8" Grid.Row="1" Width="auto" Height="auto" 
+                     Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="lavenderStart"></Ellipse>
+            
+            <Ellipse Fill="#FFFF00" Grid.Column="8" Grid.Row="8" Width="auto" Height="auto" 
+                     Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="lemonStart"></Ellipse>
+            
+            <Ellipse Fill="#CCFF99" Grid.Column="1" Grid.Row="8" Width="auto" Height="auto"
+                     Grid.ColumnSpan="2" Grid.RowSpan="2" x:Name="greenStart"></Ellipse>
+
+            <Ellipse Fill="#FFCC66" Grid.Column="0" Grid.Row="4" Stroke="Gray" StrokeThickness="1px" x:Name="b1"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="1" Grid.Row="4"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="2" Grid.Row="4"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="3" Grid.Row="4"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="4" Grid.Row="4"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="4" Grid.Row="3"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="4" Grid.Row="2"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="4" Grid.Row="1"  Stroke="Gray" StrokeThickness="1px"></Ellipse>      
+            <Ellipse Fill="White" Grid.Column="4" Grid.Row="0"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="5" Grid.Row="0"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            
+            <Ellipse Fill="#FF3399" Grid.Column="6" Grid.Row="0"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="#FF3399" Grid.Column="5" Grid.Row="1"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="#FF3399" Grid.Column="5" Grid.Row="2"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="#FF3399" Grid.Column="5" Grid.Row="3"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="#FF3399" Grid.Column="5" Grid.Row="4"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+
+            <Ellipse Fill="White" Grid.Column="6" Grid.Row="1"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="6" Grid.Row="2"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="6" Grid.Row="3"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="6" Grid.Row="4"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="7" Grid.Row="4"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="8" Grid.Row="4"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="9" Grid.Row="4"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="10" Grid.Row="4"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="11" Grid.Row="4"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="11" Grid.Row="5"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            
+            <Ellipse Fill="#FFFF00" Grid.Column="9" Grid.Row="5"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="#FFFF00" Grid.Column="8" Grid.Row="5"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="#FFFF00" Grid.Column="7" Grid.Row="5"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="#FFFF00" Grid.Column="6" Grid.Row="5"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="#FFFF00" Grid.Column="11" Grid.Row="6"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            
+            <Ellipse Fill="White" Grid.Column="9" Grid.Row="6"  Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="8" Grid.Row="6" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="7" Grid.Row="6" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="6" Grid.Row="6" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="6" Grid.Row="7" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="6" Grid.Row="8" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="6" Grid.Row="9" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="6" Grid.Row="10" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="5" Grid.Row="10" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            
+            <Ellipse Fill="#CCFF99" Grid.Column="4" Grid.Row="10" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="4" Grid.Row="8" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="4" Grid.Row="7" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="4" Grid.Row="6" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="3" Grid.Row="6" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="2" Grid.Row="6" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="1" Grid.Row="6" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="0" Grid.Row="6" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="4" Grid.Row="6" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="White" Grid.Column="0" Grid.Row="5" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            
+            <Ellipse Fill="#FFCC66" Grid.Column="1" Grid.Row="5" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="#FFCC66" Grid.Column="2" Grid.Row="5" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="#FFCC66" Grid.Column="3" Grid.Row="5" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="#FFCC66" Grid.Column="4" Grid.Row="5" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            
+            <Ellipse Fill="White" Grid.Column="4" Grid.Row="9" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            
+            <Ellipse Fill="#CCFF99" Grid.Column="5" Grid.Row="9" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="#CCFF99" Grid.Column="5" Grid.Row="8" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="#CCFF99" Grid.Column="5" Grid.Row="7" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+            <Ellipse Fill="#CCFF99" Grid.Column="5" Grid.Row="6" Stroke="Gray" StrokeThickness="1px"></Ellipse>
+
+            <Ellipse Fill="Black" Grid.Column="5" Grid.Row="5"></Ellipse>
+
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="blueStart1" Grid.Column="{Binding Path=Pieces[0].X}" Grid.Row="{Binding Path=Pieces[0].Y,UpdateSourceTrigger=PropertyChanged}"></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="blueStart2" Grid.Column="{Binding Path=Pieces[1].X}" Grid.Row="{Binding Path=Pieces[1].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="blueStart3" Grid.Column="{Binding Path=Pieces[2].X}" Grid.Row="{Binding Path=Pieces[2].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="blueStart4" Grid.Column="{Binding Path=Pieces[3].X}" Grid.Row="{Binding Path=Pieces[3].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lavenderStart1" Grid.Column="{Binding Path=Pieces[4].X}" Grid.Row="{Binding Path=Pieces[4].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lavenderStart2" Grid.Column="{Binding Path=Pieces[5].X}" Grid.Row="{Binding Path=Pieces[5].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lavenderStart3" Grid.Column="{Binding Path=Pieces[6].X}" Grid.Row="{Binding Path=Pieces[6].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lavenderStart4" Grid.Column="{Binding Path=Pieces[7].X}" Grid.Row="{Binding Path=Pieces[7].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
+
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lemonStart1" Grid.Column="{Binding Path=Pieces[8].X}" Grid.Row="{Binding Path=Pieces[8].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lemonStart2" Grid.Column="{Binding Path=Pieces[9].X}" Grid.Row="{Binding Path=Pieces[9].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lemonStart3" Grid.Column="{Binding Path=Pieces[10].X}" Grid.Row="{Binding Path=Pieces[10].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lemonStart4" Grid.Column="{Binding Path=Pieces[11].X}" Grid.Row="{Binding Path=Pieces[11].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="greenStart1" Grid.Column="{Binding Path=Pieces[12].X}" Grid.Row="{Binding Path=Pieces[12].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="greenStart2" Grid.Column="{Binding Path=Pieces[13].X}" Grid.Row="{Binding Path=Pieces[13].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="greenStart3" Grid.Column="{Binding Path=Pieces[14].X}" Grid.Row="{Binding Path=Pieces[14].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="greenStart4" Grid.Column="{Binding Path=Pieces[15].X}" Grid.Row="{Binding Path=Pieces[15].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+        </Grid>
+
+    </DockPanel>
+</Window>
