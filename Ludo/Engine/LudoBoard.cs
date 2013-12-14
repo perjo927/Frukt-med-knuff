@@ -286,7 +286,7 @@ namespace LudoRules
             {
                 int side = (int)color;
                 int squareID = steps - (numOfPlayers * numOfSquaresPerSide); // TODO: ******** DETTA BLev FEL, bytt pos->steps ************
-                return exitSquares[side][squareID];
+                return exitSquares[side][squareID]; // TODO:: detta blir fel när mna får steg över 44
             }
             else // look in normal squares
             {

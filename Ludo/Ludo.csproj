@@ -62,8 +62,17 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -81,6 +90,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="LudoBoardTable.cs">
+      <DependentUpon>LudoModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LudoModel2.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LudoModel2.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LudoModel2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LudoModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LudoModel2.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LudoModel2.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="NestOccupant.cs">
+      <DependentUpon>LudoModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NestTable.cs">
+      <DependentUpon>LudoModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PieceTable.cs">
+      <DependentUpon>LudoModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlayerTable.cs">
+      <DependentUpon>LudoModel2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SquareTable.cs">
+      <DependentUpon>LudoModel2.tt</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -128,8 +170,27 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="Engine\ClassDiagram1.cd" />
+    <EntityDeploy Include="LudoModel2.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>LudoModel2.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="LudoModel2.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LudoModel2.Context.cs</LastGenOutput>
+      <DependentUpon>LudoModel2.edmx</DependentUpon>
+    </None>
+    <None Include="LudoModel2.edmx.diagram">
+      <DependentUpon>LudoModel2.edmx</DependentUpon>
+    </None>
+    <None Include="LudoModel2.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>LudoModel2.cs</LastGenOutput>
+      <DependentUpon>LudoModel2.edmx</DependentUpon>
+    </None>
     <None Include="Ludo_TemporaryKey.pfx" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -252,6 +313,16 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>LudoBase.mdf</DependentUpon>
     </Content>
+    <Content Include="LudoBase.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LudoBase_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>LudoBase.mdf</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
