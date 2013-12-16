@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LudoRules
 {
     /// <summary>
-    /// Nest is a stack-like construction which collects inactive pieces
+    /// The Nest collects inactive pieces
     /// </summary>
     public class Nest : BoardObject
     {
@@ -43,14 +43,10 @@ namespace LudoRules
             Piece piece = pieces[index];
             return piece;
         }
-        //public void pushPiece(Piece piece)
-        //{
-        //    pieces[piece.PieceID] = piece;
-        //}
 
         public override string ToString()
         {
-            return String.Format("\nNest, Color: {0}, pieces count: {1}", color.ToString(), Count);
+            return String.Format("\nNest, Color: {0}", color.ToString());
         }
 
         #endregion  

@@ -16,11 +16,6 @@
             <Button Focusable="False" FontFamily="SketchFlow Print" FontSize="25" Height="40" Width="200" HorizontalAlignment="Center" Background="#CCFFFF" BorderBrush="AliceBlue" Click="QuitGame">Sluta</Button>
             <Button Focusable="False" FontFamily="SketchFlow Print" FontSize="25" Height="40" Width="200" HorizontalAlignment="Center" Background="#CCFFFF" BorderBrush="AliceBlue" Click="SaveGame">Spara</Button>
             <Button Focusable="False" FontFamily="SketchFlow Print" FontSize="25" Height="40" Width="200" HorizontalAlignment="Center" Background="#CCFFFF" BorderBrush="AliceBlue" Click="LoadGame" Content="Ladda"/>
-            <TextBox FontFamily="Utsaah" Background="#CCFFFF" Width="180" Height="256"
-            	HorizontalAlignment="Center" HorizontalContentAlignment="Center" 
-            	VerticalContentAlignment="Center" VerticalAlignment="Center" IsReadOnly="True" 
-            	FontSize="10"
-            	Text="{Binding PiecesStatus}"/>
         </StackPanel>
 
         <Grid Height="auto" Width="200" DockPanel.Dock="Right">

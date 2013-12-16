@@ -73,18 +73,18 @@ namespace LudoRules
 
 
         #region Methods
-        public GameState loadGame()
+        public GameState loadGame(out int playerTurn)
         {
-            ludoBoard.loadSavedBoard();
+            ludoBoard.loadSavedBoard(out playerTurn);
             GameState gameState = new GameState();
             Piece[][] pieces = (Piece[][]) ludoBoard.State["pieces"];
             return updateGameState(gameState, pieces);
         }
-        public void saveGame()
+        public void saveGame(int playerTurn)
         {
-            // TODO: spara vems tur det är
-            ludoBoard.saveBoard();
+            ludoBoard.saveBoard(playerTurn);
         }
+
         private void setupBoard()
         {
             ludoBoard = new LudoBoard();

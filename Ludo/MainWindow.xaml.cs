@@ -47,8 +47,6 @@ namespace Ludo
         private GameState gameState; 
         private GameEvent gameEvent;
 
-        private string piecesStatus;
-
         private const int blueStartingPosition = 1;
         private const int redStartingPosition = 11; 
         private const int yellowStartingPosition = 21;
@@ -132,11 +130,6 @@ namespace Ludo
             get { return chosenPieceColor; }
             set { chosenPieceColor = value; } 
         }
-        public string PiecesStatus
-        {
-            get { return piecesStatus;  }
-            set { piecesStatus = value; OnPropertyChanged("PiecesStatus"); }
-        }
         #endregion
 
 
@@ -177,25 +170,22 @@ namespace Ludo
         }     
         void SaveGame(object sender, RoutedEventArgs e)
         {
-            // TODO:
-            /*
-              ruleEngine.saveGame()
-             * spara vems tur det är? skicka in i saveGame
-             */ 
+            if (hasGameStarted)
+            {
+                ruleEngine.saveGame((int) gameEvent.Player);
+            }
+             
         }
         void LoadGame(object sender, RoutedEventArgs e)
         {
-            // TODO:
-            /*
-             StartGame();
-             gameState = ruleEngine.loadGame()
-             changePieces(gameState);
-             *   
-                    resetInGameValues();
-                    gameEvent.Player = switchTurn(); 
-                    createTurnString(ref turn);
-                    PlayerTurn = turn;
-             */
+            int assignedTurn; 
+
+            StartGame();
+            gameState = ruleEngine.loadGame(out assignedTurn);
+            changePieces(gameState);
+            gameEvent.Player = (LudoRules.Colors)assignedTurn;
+            createTurnString(ref turn);
+            PlayerTurn = turn;
         }
         void QuitGame(object sender, RoutedEventArgs e)
         {
@@ -248,21 +238,12 @@ namespace Ludo
 
         private void showGameState(LudoRules.GameState gameState)
         {
-            int i = 0;
-            string status = String.Empty;
-
             foreach (var pieceInfo in gameState.Pieces)
             {
                 var piecePosition = pieceInfo[0];
                 var pieceColor = pieceInfo[1];
                 var pieceSteps = pieceInfo[2];
-
-
-               status += String.Format("\nPiece: {0}. Position: {1}, color: {2}, steps: {3}",
-                    ++i, piecePosition, pieceColor, pieceSteps);
             }
-            piecesStatus = status;
-            PiecesStatus = piecesStatus;
         }
 
         private GameState parseNewEvent(int diceRoll)

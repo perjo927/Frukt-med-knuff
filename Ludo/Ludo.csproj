@@ -62,11 +62,13 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -86,57 +88,22 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.xaml.cs" />
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="LudoBoardTable.cs">
-      <DependentUpon>LudoModel2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LudoModel2.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LudoModel2.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LudoModel2.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LudoModel2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="LudoModel2.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>LudoModel2.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="NestOccupant.cs">
-      <DependentUpon>LudoModel2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="NestTable.cs">
-      <DependentUpon>LudoModel2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PieceTable.cs">
-      <DependentUpon>LudoModel2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="PlayerTable.cs">
-      <DependentUpon>LudoModel2.tt</DependentUpon>
-    </Compile>
-    <Compile Include="SquareTable.cs">
-      <DependentUpon>LudoModel2.tt</DependentUpon>
-    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Dice.cs" />
     <Compile Include="Engine\BoardObject.cs" />
     <Compile Include="Engine\Colors.cs" />
     <Compile Include="Engine\GameEvent.cs" />
     <Compile Include="Engine\GameState.cs" />
     <Compile Include="Engine\LudoBoard.cs" />
+    <Compile Include="Models\LudoBoardTable.cs" />
     <Compile Include="Engine\Nest.cs" />
     <Compile Include="Engine\Piece.cs" />
     <Compile Include="Engine\Player.cs" />
@@ -149,9 +116,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Move.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Piece.cs" />
-    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -170,26 +136,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
-    <None Include="ClassDiagram2.cd" />
     <None Include="Engine\ClassDiagram1.cd" />
-    <EntityDeploy Include="LudoModel2.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LudoModel2.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="LudoModel2.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>LudoModel2.Context.cs</LastGenOutput>
-      <DependentUpon>LudoModel2.edmx</DependentUpon>
-    </None>
-    <None Include="LudoModel2.edmx.diagram">
-      <DependentUpon>LudoModel2.edmx</DependentUpon>
-    </None>
-    <None Include="LudoModel2.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>LudoModel2.cs</LastGenOutput>
-      <DependentUpon>LudoModel2.edmx</DependentUpon>
-    </None>
-    <None Include="Ludo_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -198,23 +145,9 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\red.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\yellow.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\blue.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\lavender.jpg" />
-    <Resource Include="images\lemon.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\green.jpg" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -246,9 +179,6 @@
     <Resource Include="images\ananas.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="images\ga5steg.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="images\mr-banana.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -268,9 +198,6 @@
     <Resource Include="images\dice4.jpg" />
     <Resource Include="images\dice5.jpg" />
     <Resource Include="images\dice6.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="images\nestfull.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Regler till Ludo.txt" />
@@ -304,22 +231,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\exit.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Engine\LudoBase.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Engine\LudoBase_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>LudoBase.mdf</DependentUpon>
-    </Content>
-    <Content Include="LudoBase.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="LudoBase_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>LudoBase.mdf</DependentUpon>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

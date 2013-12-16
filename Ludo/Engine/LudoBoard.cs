@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using Ludo;
+using Ludo.Engine;
 
 namespace LudoRules
 {
@@ -24,6 +26,8 @@ namespace LudoRules
         private const int numOfMaximumStepsPerLap = numOfSquaresPerSide * numOfPlayers;
         private const int numOfStepsToExit = numOfMaximumStepsPerLap + numOfExitSquaresPerSide;
 
+        private LudoBoardTable ludoBoardTable;
+
         private Player[] players;
         private Piece[][] pieces;
         private Nest[] nests;
@@ -43,8 +47,9 @@ namespace LudoRules
         {
             this.numOfActivePlayers = numOfPlayers;
             generateBoard();
+            initializeDatabase();
 
-            Debug.Write("\nBoard constructed");
+            Debug.Write("\nBoard constructed, database initialized");
         }
         #endregion
 
@@ -85,15 +90,6 @@ namespace LudoRules
 
 
         #region Methods
-        public void loadSavedBoard()
-        {
-
-        }
-        public void saveBoard()
-        {
-
-        }
-
         private void generateBoard()
         {
             generatePlayersAndPieces();
@@ -193,7 +189,21 @@ namespace LudoRules
                 if (piece.Alive) { return false;  }
             }
             return true;
-        }     
+        }
+        private bool checkPlayerDeActivation(Colors color)
+        {
+            foreach (var piece in pieces[(int)color])
+            {
+                if (piece.Alive)
+                {
+                    return false;
+                }
+            }
+            players[(int)color].Active = false;
+            Instruction = Instructions.Victory;
+            return true;
+        }
+
         /// <summary>
         /// Here we need to consider 3 scenarios:
         /// - If we are about to roll the dice and have a chance at moving to the exit squares 
@@ -212,51 +222,35 @@ namespace LudoRules
             {
                 Debug.Write("\nBoard: Exiting");
                 isMoveSuccesful = killPiece(piece);
-                // TODO: ??
                 Instruction = Instructions.Exit;
                 checkPlayerDeActivation(piece.Color);
             }
-            // Almost quitting
-            else if (requestedSteps > numOfStepsToExit)
+            // Almost quitting (stepping back)
+            else if (requestedSteps > numOfStepsToExit) 
             {
-                Debug.Write(String.Format(
-                            "\nBoard: Going to the exit squares. Steps walked: {0}, position: {1}, trying new pos: {2}",
-                            piece.Steps, piece.Position, piece.Position + steps));
-
                 // We will have to step back x steps from the goal square (overflow)
-                Square currentPosition = locateSquare(piece.Steps, piece.Position, piece.Color);
-                calculateNewStepsAfterMissedTarget(piece.Position, requestedSteps, ref steps);
-                Square requestedPosition = locateSquare(requestedSteps, piece.Position + steps, piece.Color);
-               
-                isMoveSuccesful = tryMove(currentPosition, requestedPosition, piece, steps, requestedSteps);
+                int newSteps = piece.Steps;
+                int stepsToWalk = 0;
 
+                Square currentPosition = locateSquare(piece.Steps, piece.Position, piece.Color);
+                Debug.WriteLine("Missing target, calculating new Position");
+                int newPosition  = calculateNewPositionAfterMissedTarget(piece.Steps, requestedSteps, 
+                                                    ref stepsToWalk, ref newSteps, piece.Color);
+
+
+                Square requestedPosition = locateSquare(newSteps, newPosition, piece.Color);
+                Debug.WriteLine(requestedPosition.ToString());
+                isMoveSuccesful = tryMove(currentPosition, requestedPosition, piece, stepsToWalk);
             }
             else
             {
-                Debug.Write(String.Format(
-                    "\nBoard: Steps walked: {0}, position: {1}, trying new pos: {2}", 
-                     piece.Steps, piece.Position, piece.Position + steps));
-
                 Square currentPosition = locateSquare(piece.Steps, piece.Position, piece.Color);
                 Square requestedPosition = locateSquare(requestedSteps, piece.Position + steps, piece.Color);
 
-                isMoveSuccesful = tryMove(currentPosition, requestedPosition, piece, steps, requestedSteps);
+                isMoveSuccesful = tryMove(currentPosition, requestedPosition, piece, steps);
             }
         }
 
-        private bool checkPlayerDeActivation(Colors color)
-        {
-            foreach (var piece in pieces[(int)color])
-            {
-                    if (piece.Alive) 
-                    { 
-                        return false;  
-                    }
-            }
-            players[(int)color].Active = false;
-            Instruction = Instructions.Victory;
-            return true;
-        }
 
         /// <summary>
         /// This is a collision detector. 
@@ -265,12 +259,18 @@ namespace LudoRules
         /// <param name="currentPosition"></param>
         /// <param name="requestedSteps"></param>
         /// <returns></returns>
-        private void calculateNewStepsAfterMissedTarget(int currentPosition, int requestedSteps, ref int steps)
+        private int calculateNewPositionAfterMissedTarget(int currentPosition, int requestedSteps,
+                                                        ref int stepsToWalk, ref int newSteps, Colors color)
         {
             int overflow = requestedSteps - numOfStepsToExit;
-            int newPosition = numOfStepsToExit - overflow;
-            int numOfNewSteps = newPosition - currentPosition;
-            steps = numOfNewSteps;
+            newSteps = numOfStepsToExit - overflow;
+            stepsToWalk = newSteps - currentPosition;
+            int newRelativePosition = currentPosition + stepsToWalk;
+            if (newRelativePosition < numOfMaximumStepsPerLap)
+            {
+                newRelativePosition -= ((int) color * numOfSquaresPerSide);
+            }
+            return newRelativePosition;
         }
 
         /// <summary>
@@ -285,8 +285,8 @@ namespace LudoRules
             if (steps >= numOfMaximumStepsPerLap) // look in exitSquares
             {
                 int side = (int)color;
-                int squareID = steps - (numOfPlayers * numOfSquaresPerSide); // TODO: ******** DETTA BLev FEL, bytt pos->steps ************
-                return exitSquares[side][squareID]; // TODO:: detta blir fel när mna får steg över 44
+                int squareID = steps - (numOfPlayers * numOfSquaresPerSide); 
+                return exitSquares[side][squareID]; 
             }
             else // look in normal squares
             {
@@ -305,7 +305,7 @@ namespace LudoRules
         private bool tryIntroducePiece(Piece piece)
         {
             Square firstSquare = squares[(int)piece.Color][0];
-            bool isIntroduced = tryMove(null, firstSquare, piece, 0, 0);
+            bool isIntroduced = tryMove(null, firstSquare, piece, 0);
             return isIntroduced;
         }
 
@@ -318,14 +318,14 @@ namespace LudoRules
         /// <param name="toSquare"></param>
         /// <param name="piece"></param>
         /// <param name="steps"></param>
-        /// <param name="requestedSteps"></param>
         /// <returns></returns>
-        private bool tryMove(Square fromSquare, Square toSquare, Piece piece, int steps, int requestedSteps)
+        private bool tryMove(Square fromSquare, Square toSquare, Piece piece, int steps)
         {
             if (toSquare.Occupant == null)
             {
                 Instruction = Instructions.Move;
-                Debug.Write("\nBoard: Moving piece to square " );
+                Debug.Write("\nBoard: Moving piece from square " + fromSquare.ToString() +  "to square: " + toSquare.ToString());
+                Debug.Write("\nWalking: " + steps + " steps");
                 move(piece, toSquare, fromSquare, steps);
                 return true;
             }
@@ -366,6 +366,167 @@ namespace LudoRules
         {
             return (Active) ? "Board is active" : "Board is not active";
         }         
+        #endregion
+
+
+
+        #region databaseMethods
+        public void initializeDatabase()
+        {
+            using (var db = new LudoBoardContext())
+            {
+                Debug.WriteLine("\nPreparing DB");
+
+                ludoBoardTable = new LudoBoardTable();
+
+                List<PlayerTable> playerTables = new List<PlayerTable>();
+                List<PieceTable> pieceTables = new List<PieceTable>();
+
+                for (int color = 0; color < numOfPlayers; color++)
+                {
+                    for (int i = 0; i < numOfPiecesPerPlayer; i++)
+                    {
+                        var pieceTable = new PieceTable() { Color = color };
+                        pieceTable.ID = i;
+                        pieceTables.Add(pieceTable);
+                    }
+
+
+                    var playerTable = new PlayerTable() { Color = color };
+                    playerTables.Add(playerTable);
+
+                    #region NotUsed
+                    //Debug.WriteLine("Creating pieces nestTable");
+                    //var nestTable = new NestTable() { Color = color };
+                    //for (int i = 0; i < numOfPiecesPerPlayer; i++)
+                    //{
+                    //    nestTable.Pieces.Add(i);
+                    //    Debug.Write(i);
+                    //}
+                    //nestTables.Add(nestTable);
+                    //for (int id = 0; id < numOfSquaresPerSide; id++)
+                    //{
+                    //    var squareTable = new SquareTable() { Color = color };
+                    //    squareTable.ID = id;
+                    //    squareTables.Add(squareTable);
+                    //}
+                    //for (int id = 0; id < numOfExitSquaresPerSide; id++)
+                    //{
+                    //    var exitSquareTable = new ExitSquareTable() { Color = color };
+                    //    exitSquareTable.ID = id;
+                    //    exitSquareTables.Add(exitSquareTable);
+                    //}
+                    #endregion
+
+                }
+                //
+                ludoBoardTable.Pieces = pieceTables;
+                ludoBoardTable.Players = playerTables;
+            }
+        }
+
+        public void loadSavedBoard(out int playerTurn)
+        {
+            // set all fields to null first,
+            // when loading a game and old values persist
+            for (int color = 0; color < numOfPlayers; color++)
+            {
+                for (int i = 0; i < numOfSquaresPerSide; i++)
+                {
+                    squares[color][i].Occupant = null;
+                }
+                for (int i = 0; i < numOfExitSquaresPerSide; i++)
+                {
+                    exitSquares[color][i].Occupant = null;
+                }
+            }
+
+            using (var db = new LudoBoardContext())
+            {
+                Debug.WriteLine("\nLoading DB");
+
+                // reverse so we get the latest saved board
+                var board = (from l in db.LudoBoardTables
+                            orderby l.key descending 
+                            select l).First();
+
+                    playerTurn = board.PlayerTurn;
+
+                    foreach (var piece in board.Pieces)
+                    {
+                        int pieceID = piece.ID;
+                        int pieceColor = piece.Color;
+                        int piecePosition = piece.Position;
+
+                        pieces[pieceColor][pieceID].Active = piece.IsActive;
+                        pieces[pieceColor][pieceID].Alive = piece.IsAlive;
+                        pieces[pieceColor][pieceID].Position = piece.Position;
+                        pieces[pieceColor][pieceID].Steps = piece.Steps;
+
+
+                        if (piecePosition > -1 && piecePosition <= 9)
+                        {
+                            squares[(int)Colors.Blue][piecePosition].Occupant = pieces[pieceColor][pieceID];
+                        }
+                        else if (piecePosition > 9 && piecePosition <= 19)
+                        {
+                            squares[(int)Colors.Green][piecePosition%10].Occupant = pieces[pieceColor][pieceID];
+                        }
+                        else if (piecePosition > 20 && piecePosition <= 29 )
+                        {
+                            squares[(int)Colors.Red][piecePosition%20].Occupant = pieces[pieceColor][pieceID];
+                        }
+                        else if (piecePosition > 30 && piecePosition < numOfMaximumStepsPerLap)
+                        {
+                            squares[(int)Colors.Yellow][piecePosition%30].Occupant = pieces[pieceColor][pieceID];
+                        }
+                        else if (piecePosition >= numOfMaximumStepsPerLap)
+                        {
+                            exitSquares[pieceColor][piecePosition % numOfMaximumStepsPerLap].Occupant = 
+                                pieces[pieceColor][pieceID];
+                        }
+                    }
+
+
+                    Debug.WriteLine("Players");
+                    foreach (var player in board.Players)
+                    {
+                        int playerColor = player.Color;
+                        players[player.Color].Active = player.IsActive;
+                    }
+            }
+        }
+
+        public void saveBoard(int playerTurn)
+        {
+            using (var db = new LudoBoardContext())
+            {
+                Debug.WriteLine("\nSaving DB");
+
+                // Board status
+                ludoBoardTable.IsActive = this.Active;
+
+                for (int color = 0; color < numOfPlayers; color++)
+                {
+                    // Players status
+                    ludoBoardTable.Players[color].IsActive = players[color].Active;
+                    ludoBoardTable.PlayerTurn = playerTurn;
+
+                    for (int i = 0; i < numOfPiecesPerPlayer; i++)
+                    {
+                        int index = (color * numOfPlayers) + i;
+                        ludoBoardTable.Pieces[index].IsAlive = pieces[color][i].Alive;
+                        ludoBoardTable.Pieces[index].IsActive = pieces[color][i].Active;
+                        ludoBoardTable.Pieces[index].Position = pieces[color][i].Position;
+                        ludoBoardTable.Pieces[index].Steps = pieces[color][i].Steps;
+                    }
+
+                }
+                //
+                db.LudoBoardTables.Add(ludoBoardTable);
+                db.SaveChanges();
+            }
+        }
         #endregion
     }
 }

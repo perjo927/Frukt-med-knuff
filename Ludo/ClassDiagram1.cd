@@ -3,7 +3,7 @@
   <Class Name="Ludo.MainWindow">
     <Position X="4" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AABgAAEAABAUEgIIqQBAMJAwiAQwAAighBAgIAwgACE=</HashCode>
+      <HashCode>gABgAAEAABAUEgIIqQBAMJAwiAQwAAighBAgIAwiACM=</HashCode>
       <FileName>MainWindow.xaml.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -11,7 +11,7 @@
   <Class Name="LudoRules.RuleEngine">
     <Position X="0.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAAAAAACiAAAAAAABAAAgQAAAECCAAABAAAAAA=</HashCode>
+      <HashCode>AAEgAQAAAAAACiAAEAAAABAAAgQAAAECCAAABAAAAAA=</HashCode>
       <FileName>Engine\RuleEngine.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -22,32 +22,11 @@
       <FileName>Dice.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Ludo.Move">
-    <Position X="6.25" Y="2" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Move.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="Ludo.Piece">
-    <Position X="8.25" Y="0.5" Width="1.5" />
+    <Position X="6" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAIAAQAAAAAEBAAABAAAAAAAACAAAAAAAAAYAA=</HashCode>
       <FileName>Piece.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Ludo.Player">
-    <Position X="10.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Player.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="Ludo.Nest">
-    <Position X="6.75" Y="3.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAgAABAAAAAQAAAAAAACgAAAACAAAAAA=</HashCode>
-      <FileName>Nest.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Struct Name="LudoRules.GameEvent">
@@ -74,7 +53,7 @@
   <Enum Name="LudoRules.Instructions" Collapsed="true">
     <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAIAAAAAIAAAAAAAAAEAAAAAAAAAAgAIACAAAEAAAA=</HashCode>
       <FileName>Instructions.cs</FileName>
     </TypeIdentifier>
   </Enum>
