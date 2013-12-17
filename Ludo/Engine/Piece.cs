@@ -67,9 +67,9 @@ namespace LudoRules
             { 
                 this.position = value;
                 if (this.position >= boardSize && steps < boardSize) 
-                { 
-                    this.position -= boardSize;
-                } // wrap arund
+                {
+                    this.position -= boardSize; // wrap around
+                } 
             }
         }
 

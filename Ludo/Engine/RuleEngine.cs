@@ -13,12 +13,9 @@ namespace LudoRules
     /// Ludo.LudoRules
     /// <author> Per Jonsson, Hannah Börjesson </author>
     /// Innovativ Programmering, Linköpings Universitet
-    /// TDDD49: Lab 2
+    /// TDDD49
     /// <summary>
-    /// Laborationsbeskrivning:
-    /// "Bygg en regelmotor som verifierar olika drag och håller ordning på spelets tillstånd.
-    /// Regelmotorn ska vara isolerad mot resten av systemet.
-    /// Du ska enhetstesta din regelmotor med enhetstestprojekt i Visual Studio."
+    /// Provides updated GameState after parsing GameEvents
     /// </summary>
     public class RuleEngine
     {
@@ -44,7 +41,6 @@ namespace LudoRules
 
         
         #region Properties
-
         public Dictionary<string, object> State
         {
             get { return ludoBoard.State; }
@@ -182,11 +178,6 @@ namespace LudoRules
             return isPieceActivated;
         }
 
-        /// <summary>
-        ///  tryMove(piece)
-        /// </summary>
-        /// <param name="piece"></param>
-        /// <param name="dice"></param>
         private bool tryMove(Piece piece, dice dice)
         {
             bool isMoveSuccesful = false;

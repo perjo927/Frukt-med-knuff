@@ -18,7 +18,7 @@ namespace LudoRules
 
 
         #region Constructor
-        public Player(Colors color)//, int numOfPieces)
+        public Player(Colors color)
         {
             PlayerID = color;
             isActive = false;
@@ -50,6 +50,5 @@ namespace LudoRules
             return status;
         }
         #endregion
-
     }
 }

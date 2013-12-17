@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Ludo
 {
+    /// <summary>
+    ///  GUI Dice helper
+    /// </summary>
     class Dice
     {  
-       
         public int rollDice()
         {
             Random num = new Random();

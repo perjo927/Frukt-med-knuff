@@ -9,7 +9,7 @@ using Ludo.Engine;
 namespace LudoRules
 {
     /// <summary>
-    /// We want to make sure that board contains mathods and attributes
+    /// We want to make sure that board contains methods and attributes
     /// to keep track of the actual state of of what's taking place
     /// and also services to change its state
     /// </summary>
@@ -178,7 +178,7 @@ namespace LudoRules
             currentPosition.Occupant = null;
             piece.Alive = false;
             piece.Active = false;
-            piece.Position = 44; // TODO:
+            piece.Position = 44; 
             piece.Steps = 44;
             return true;
         }
@@ -236,7 +236,6 @@ namespace LudoRules
                 Debug.WriteLine("Missing target, calculating new Position");
                 int newPosition  = calculateNewPositionAfterMissedTarget(piece.Steps, requestedSteps, 
                                                     ref stepsToWalk, ref newSteps, piece.Color);
-
 
                 Square requestedPosition = locateSquare(newSteps, newPosition, piece.Color);
                 Debug.WriteLine(requestedPosition.ToString());
@@ -324,7 +323,7 @@ namespace LudoRules
             if (toSquare.Occupant == null)
             {
                 Instruction = Instructions.Move;
-                Debug.Write("\nBoard: Moving piece from square " + fromSquare.ToString() +  "to square: " + toSquare.ToString());
+                Debug.Write("\nBoard: Moving piece");
                 Debug.Write("\nWalking: " + steps + " steps");
                 move(piece, toSquare, fromSquare, steps);
                 return true;
@@ -429,6 +428,7 @@ namespace LudoRules
         {
             // set all fields to null first,
             // when loading a game and old values persist
+            #region Nullify
             for (int color = 0; color < numOfPlayers; color++)
             {
                 for (int i = 0; i < numOfSquaresPerSide; i++)
@@ -440,6 +440,7 @@ namespace LudoRules
                     exitSquares[color][i].Occupant = null;
                 }
             }
+            #endregion
 
             using (var db = new LudoBoardContext())
             {
@@ -452,6 +453,7 @@ namespace LudoRules
 
                     playerTurn = board.PlayerTurn;
 
+                    #region Pieces
                     foreach (var piece in board.Pieces)
                     {
                         int pieceID = piece.ID;
@@ -486,14 +488,14 @@ namespace LudoRules
                                 pieces[pieceColor][pieceID];
                         }
                     }
-
-
-                    Debug.WriteLine("Players");
+                    #endregion
+                    #region Players
                     foreach (var player in board.Players)
                     {
                         int playerColor = player.Color;
                         players[player.Color].Active = player.IsActive;
                     }
+                    #endregion
             }
         }
 

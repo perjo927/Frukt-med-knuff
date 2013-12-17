@@ -1,8 +1,10 @@
-﻿<Window x:Class="Ludo.MainWindow"
+﻿
+    
+    <Window x:Class="Ludo.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         
-        Title="MainWindow" Height="auto" Width="auto">
+        Title="Frukt Med Knuff" Height="auto" Width="auto">
 
 
     <DockPanel>
@@ -166,25 +168,25 @@
 
             <Ellipse Fill="Black" Grid.Column="5" Grid.Row="5"></Ellipse>
 
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="blueStart1" Grid.Column="{Binding Path=Pieces[0].X}" Grid.Row="{Binding Path=Pieces[0].Y,UpdateSourceTrigger=PropertyChanged}"></Image>
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="blueStart2" Grid.Column="{Binding Path=Pieces[1].X}" Grid.Row="{Binding Path=Pieces[1].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="blueStart3" Grid.Column="{Binding Path=Pieces[2].X}" Grid.Row="{Binding Path=Pieces[2].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="blueStart4" Grid.Column="{Binding Path=Pieces[3].X}" Grid.Row="{Binding Path=Pieces[3].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="blueStart1" Grid.Column="{Binding Path=Pieces[0].X}" Grid.Row="{Binding Path=Pieces[0].Y,UpdateSourceTrigger=PropertyChanged}"></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="blueStart2" Grid.Column="{Binding Path=Pieces[1].X}" Grid.Row="{Binding Path=Pieces[1].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="blueStart3" Grid.Column="{Binding Path=Pieces[2].X}" Grid.Row="{Binding Path=Pieces[2].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="blueStart4" Grid.Column="{Binding Path=Pieces[3].X}" Grid.Row="{Binding Path=Pieces[3].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
 
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lavenderStart1" Grid.Column="{Binding Path=Pieces[4].X}" Grid.Row="{Binding Path=Pieces[4].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lavenderStart2" Grid.Column="{Binding Path=Pieces[5].X}" Grid.Row="{Binding Path=Pieces[5].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lavenderStart3" Grid.Column="{Binding Path=Pieces[6].X}" Grid.Row="{Binding Path=Pieces[6].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lavenderStart4" Grid.Column="{Binding Path=Pieces[7].X}" Grid.Row="{Binding Path=Pieces[7].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="lavenderStart1" Grid.Column="{Binding Path=Pieces[4].X}" Grid.Row="{Binding Path=Pieces[4].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="lavenderStart2" Grid.Column="{Binding Path=Pieces[5].X}" Grid.Row="{Binding Path=Pieces[5].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="lavenderStart3" Grid.Column="{Binding Path=Pieces[6].X}" Grid.Row="{Binding Path=Pieces[6].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="lavenderStart4" Grid.Column="{Binding Path=Pieces[7].X}" Grid.Row="{Binding Path=Pieces[7].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
 
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lemonStart1" Grid.Column="{Binding Path=Pieces[8].X}" Grid.Row="{Binding Path=Pieces[8].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lemonStart2" Grid.Column="{Binding Path=Pieces[9].X}" Grid.Row="{Binding Path=Pieces[9].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lemonStart3" Grid.Column="{Binding Path=Pieces[10].X}" Grid.Row="{Binding Path=Pieces[10].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="lemonStart4" Grid.Column="{Binding Path=Pieces[11].X}" Grid.Row="{Binding Path=Pieces[11].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="lemonStart1" Grid.Column="{Binding Path=Pieces[8].X}" Grid.Row="{Binding Path=Pieces[8].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="lemonStart2" Grid.Column="{Binding Path=Pieces[9].X}" Grid.Row="{Binding Path=Pieces[9].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="lemonStart3" Grid.Column="{Binding Path=Pieces[10].X}" Grid.Row="{Binding Path=Pieces[10].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="lemonStart4" Grid.Column="{Binding Path=Pieces[11].X}" Grid.Row="{Binding Path=Pieces[11].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
 
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="greenStart1" Grid.Column="{Binding Path=Pieces[12].X}" Grid.Row="{Binding Path=Pieces[12].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="greenStart2" Grid.Column="{Binding Path=Pieces[13].X}" Grid.Row="{Binding Path=Pieces[13].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="greenStart3" Grid.Column="{Binding Path=Pieces[14].X}" Grid.Row="{Binding Path=Pieces[14].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
-            <Image MouseDown="ChoosePiece" MouseEnter="ScaleUp" MouseLeave="ScaleDown" x:Name="greenStart4" Grid.Column="{Binding Path=Pieces[15].X}" Grid.Row="{Binding Path=Pieces[15].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="greenStart1" Grid.Column="{Binding Path=Pieces[12].X}" Grid.Row="{Binding Path=Pieces[12].Y, UpdateSourceTrigger=PropertyChanged}"></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="greenStart2" Grid.Column="{Binding Path=Pieces[13].X}" Grid.Row="{Binding Path=Pieces[13].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="greenStart3" Grid.Column="{Binding Path=Pieces[14].X}" Grid.Row="{Binding Path=Pieces[14].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
+            <Image MouseDown="ChoosePiece" MouseEnter="ImageScaleUp" MouseLeave="ImageScaleDown" x:Name="greenStart4" Grid.Column="{Binding Path=Pieces[15].X}" Grid.Row="{Binding Path=Pieces[15].Y, UpdateSourceTrigger=PropertyChanged}" ></Image>
         </Grid>
 
     </DockPanel>

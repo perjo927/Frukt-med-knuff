@@ -7,12 +7,12 @@ using System.Windows;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Ludo")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Frukt med knuff")]
+[assembly: AssemblyDescription("A board game inspired by Ludo")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Ludo")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCompany("IT-bolagEtt")]
+[assembly: AssemblyProduct("Fruits with Poke")]
+[assembly: AssemblyCopyright("By Hannah Börjesson and Per Jonsson, Linköping university")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

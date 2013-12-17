@@ -8,6 +8,9 @@ using System.Windows.Media.Imaging;
 
 namespace Ludo
 {
+    /// <summary>
+    /// Code representation of GUI Pieces (to be binded)
+    /// </summary>
     public class Piece
     {
         #region Fields
@@ -25,6 +28,8 @@ namespace Ludo
             _y = startY;
         }
         #endregion
+
+
 
         #region Properties 
         public int X
@@ -44,10 +49,13 @@ namespace Ludo
         }
         #endregion
 
+
+        #region Methods
         public BitmapImage getImage()
         {
             BitmapImage image = new BitmapImage(new Uri("/images/" + color + ".png", UriKind.Relative));
             return image;
         }      
+        #endregion
     }
 }

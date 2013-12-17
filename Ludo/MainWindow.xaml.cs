@@ -1,4 +1,4 @@
-﻿
+﻿#region Using
 using LudoRules;
 using System;
 using System.Collections.Generic;
@@ -17,6 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Media.Effects;
+#endregion
+
 
 namespace Ludo
 {
@@ -24,7 +26,7 @@ namespace Ludo
     /// // <author> Per Jonsson, Hannah Börjesson </author>
     /// Innovativ Programmering, Linköpings Universitet
     /// TDDD49
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for GUI, MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
@@ -35,6 +37,7 @@ namespace Ludo
         public event PropertyChangedEventHandler PropertyChanged;
 
         private List<Piece> pieces;
+        private List<Image> pieceImages; 
         private int chosenPieceID;
         private const int numOfPiecesPerPlayer = 4;
         private const int numOfPlayers = 4;
@@ -151,6 +154,12 @@ namespace Ludo
             }
         }
 
+        #region Menu
+        /// <summary>
+        /// Menu options
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void StartGame(object sender, RoutedEventArgs e)
         {
             StartGame();
@@ -164,7 +173,7 @@ namespace Ludo
             hasGameStarted = true;
             createTurnString(ref turn);
             PlayerTurn = turn;
-            gameEvent.Player = LudoRules.Colors.Blue; // || savedPlayer
+            gameEvent.Player = LudoRules.Colors.Blue; 
             chooseTalkingBubble("/images/started.png");
             initializePieces();
         }     
@@ -174,7 +183,6 @@ namespace Ludo
             {
                 ruleEngine.saveGame((int) gameEvent.Player);
             }
-             
         }
         void LoadGame(object sender, RoutedEventArgs e)
         {
@@ -189,15 +197,12 @@ namespace Ludo
         }
         void QuitGame(object sender, RoutedEventArgs e)
         {
-            // TODO:
-            /*
-             Hur gör man det??
-             */ 
+            Application.Current.Shutdown();
         }
-
+        #endregion
 
         /// <summary>
-        /// 
+        /// When the "roll dice" button has been clicked - communicate with rule engine
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -223,7 +228,6 @@ namespace Ludo
 
                     // Let the rule engine do its magic and update the game state, then update GUI
                     gameState = parseNewEvent(diceRoll);
-                    showGameState(gameState);
                     changePieces(gameState);
                     showInstructions(diceRoll);
 
@@ -235,17 +239,6 @@ namespace Ludo
                 } 
             }
         }
-
-        private void showGameState(LudoRules.GameState gameState)
-        {
-            foreach (var pieceInfo in gameState.Pieces)
-            {
-                var piecePosition = pieceInfo[0];
-                var pieceColor = pieceInfo[1];
-                var pieceSteps = pieceInfo[2];
-            }
-        }
-
         private GameState parseNewEvent(int diceRoll)
         {
             gameEvent.Dice = diceRoll;
@@ -253,16 +246,25 @@ namespace Ludo
             return ruleEngine.parseEvent(gameEvent);
         }
 
-        void ScaleUp(object sender, MouseEventArgs e)
+        /// <summary>
+        /// Image hover selection effects
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void ImageScaleUp(object sender, MouseEventArgs e)
         {
             Image img = e.Source as Image;
             img.Height = img.ActualHeight * 1.2;
         }
-        void ScaleDown(object sender, MouseEventArgs e)
+        void ImageScaleDown(object sender, MouseEventArgs e)
         {
             Image img = e.Source as Image;
             img.Height /=  1.2;
         }
+        /// <summary>
+        /// Update GUI bindings when rule engine changes the state of the pieces
+        /// </summary>
+        /// <param name="gameState"></param>
         private void changePieces(GameState gameState)
         {
             int x, y;
@@ -279,10 +281,11 @@ namespace Ludo
                     x = nestPositions[pieceIndexInNest][0];
                     y = nestPositions[pieceIndexInNest][1];
                 }
-                else if (piecePosition == 44) // exited, nowhere
+                else if (piecePosition == 44 || pieceSteps == 44) // exited, nowhere
                 {
-                    x = 0; // TODO: göm undan pjäser ...
-                    y = 0; //
+                    x = 0; 
+                    y = 0;
+                    pieceImages[pieceIndexInNest].Visibility = Visibility.Hidden;                   
                 }
                 else // in squares
                 {
@@ -325,7 +328,7 @@ namespace Ludo
         } 
 
         /// <summary>
-        /// 
+        /// A piece must be chosen before rolling the dice
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -473,42 +476,59 @@ namespace Ludo
             // change Property
             Pieces = pieces;
 
+            pieceImages = new List<Image>();
             //Show images of pieces on the board 
             BitmapImage blueImg1 = blue1.getImage();
             blueStart1.Source = blueImg1;
+            pieceImages.Add(blueStart1);
             BitmapImage blueImg2 = blue2.getImage();
             blueStart2.Source = blueImg2;
+            pieceImages.Add(blueStart2);
             BitmapImage blueImg3 = blue3.getImage();
             blueStart3.Source = blueImg3;
+            pieceImages.Add(blueStart3);
             BitmapImage blueImg4 = blue4.getImage();
             blueStart4.Source = blueImg4;
+            pieceImages.Add(blueStart4);
 
             BitmapImage lavenderImg1 = lavender1.getImage();
             lavenderStart1.Source = lavenderImg1;
+            pieceImages.Add(lavenderStart1);
             BitmapImage lavenderImg2 = lavender2.getImage();
             lavenderStart2.Source = lavenderImg2;
+            pieceImages.Add(lavenderStart2);
             BitmapImage lavenderImg3 = lavender3.getImage();
             lavenderStart3.Source = lavenderImg3;
+            pieceImages.Add(lavenderStart3);
             BitmapImage lavenderImg4 = lavender4.getImage();
             lavenderStart4.Source = lavenderImg4;
+            pieceImages.Add(lavenderStart4);
 
             BitmapImage lemonImg1 = lemon1.getImage();
             lemonStart1.Source = lemonImg1;
+            pieceImages.Add(lemonStart1);
             BitmapImage lemonImg2 = lemon2.getImage();
             lemonStart2.Source = lemonImg2;
+            pieceImages.Add(lemonStart2);
             BitmapImage lemonImg3 = lemon3.getImage();
             lemonStart3.Source = lemonImg3;
+            pieceImages.Add(lemonStart3);
             BitmapImage lemonImg4 = lemon4.getImage();
             lemonStart4.Source = lemonImg4;
+            pieceImages.Add(lemonStart4);
 
             BitmapImage greenImg1 = green1.getImage();
             greenStart1.Source = greenImg1;
+            pieceImages.Add(greenStart1);
             BitmapImage greenImg2 = green2.getImage();
             greenStart2.Source = greenImg2;
+            pieceImages.Add(greenStart2);
             BitmapImage greenImg3 = green3.getImage();
             greenStart3.Source = greenImg3;
+            pieceImages.Add(greenStart3);
             BitmapImage greenImg4 = green4.getImage();
             greenStart4.Source = greenImg4;
+            pieceImages.Add(greenStart4);
         }
         #endregion
     }
