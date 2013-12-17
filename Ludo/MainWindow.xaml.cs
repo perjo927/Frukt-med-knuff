@@ -181,7 +181,7 @@ namespace Ludo
         {
             if (hasGameStarted)
             {
-                ruleEngine.saveGame((int) gameEvent.Player);
+                ruleEngine.saveGame((int)gameEvent.Player);
             }
         }
         void LoadGame(object sender, RoutedEventArgs e)
@@ -189,11 +189,18 @@ namespace Ludo
             int assignedTurn; 
 
             StartGame();
-            gameState = ruleEngine.loadGame(out assignedTurn);
-            changePieces(gameState);
-            gameEvent.Player = (LudoRules.Colors)assignedTurn;
-            createTurnString(ref turn);
-            PlayerTurn = turn;
+            try
+            {
+                gameState = ruleEngine.loadGame(out assignedTurn);
+                changePieces(gameState);
+                gameEvent.Player = (LudoRules.Colors)assignedTurn;
+                createTurnString(ref turn);
+                PlayerTurn = turn;
+            }
+            catch (Exception exception)
+            {
+                Debug.WriteLine("Exception: {0}", exception);
+            }
         }
         void QuitGame(object sender, RoutedEventArgs e)
         {

@@ -3,6 +3,9 @@ TDDD49 Linköpings universitet HT2013
 Hannah Börjesson (hanbo174) Per Jonsson (perjo927)
 Innovativ Programmering åk 2
 
+--Installation--
+Tryck på setup-filen i installationsmappen
+
 --- INTERAKTION ---
 För att kunna spela måste man trycka på "Starta"- eller "Ladda"-knappen i menyn.
 Därefter spelar man genom att välja pjäs och sedan trycka på "Kasta"-knappen.

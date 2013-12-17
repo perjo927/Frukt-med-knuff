@@ -522,7 +522,6 @@ namespace LudoRules
                         ludoBoardTable.Pieces[index].Position = pieces[color][i].Position;
                         ludoBoardTable.Pieces[index].Steps = pieces[color][i].Steps;
                     }
-
                 }
                 //
                 db.LudoBoardTables.Add(ludoBoardTable);
